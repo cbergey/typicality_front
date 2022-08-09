@@ -183,8 +183,13 @@ class Experiment {
     $("#question").hide();
     $("#stimulus").hide();
     $("#stage").fadeIn();    
+    if (this.article == null) {
+      var utterance = "<p>How common is it for " + this.noun + " to be " + this.adjective + " " + this.noun + "?</p>";
+    } else {
+      var utterance = "<p>How common is it for a(n) " + this.noun + " to be a(n) " + this.adjective + " " + this.noun + "?</p>";
+    } 
 
-    var utterance = "<p>How common is it for " + this.article + " " + this.noun + " to be " + this.article + " " + this.adjective + " " + this.noun + "?</p>";
+    
     $('#question').html(utterance);
     $("#question").fadeIn(1000);
     $("#stimulus").fadeIn(1000);

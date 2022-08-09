@@ -76,7 +76,7 @@ io.on('connection', function (socket) {
       iterationname: 'testing'
     };
     sendPostRequest(
-      `http://localhost:${port}/db/insert`,
+      `https://typicality.herokuapp.com/db/insert`,
       { json: _.extend({}, data, dbInfo) },
       (error, res, body) => {
         if (!error && res.statusCode === 200) {
@@ -119,7 +119,7 @@ function checkPreviousParticipant (workerId, callback) {
     projection: {'_id': 1}
   };
   sendPostRequest(
-    `http://localhost:${port}/db/exists`,
+    `https://typicality.herokuapp.com/db/exists`,
     {json: postData},
     (error, res, body) => {
       try {
@@ -141,7 +141,7 @@ function checkPreviousParticipant (workerId, callback) {
 
 function initializeWithTrials(socket) {
   const gameid = UUID();
-  sendPostRequest(`http://localhost:${port}/db/getstims`, {
+  sendPostRequest(`https://typicality.herokuapp.com/db/getstims`, {
     json: {
       dbname: 'typicality-judgments',
       colname: 'trial_set_stimuli',

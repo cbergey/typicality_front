@@ -159,7 +159,7 @@ class Experiment {
   //server
   processOneRow () {
     var jsonForRound = _.pick(this, [
-      'subid', 'itemid', 'trialnum', 'adjective', 'noun', 'article', 'rating',
+      'subid', 'itemid', 'trialnum', 'adjective', 'noun', 'article', 'adj_article', 'rating',
       'date','timestamp','reactiontime', 'occurrence'
     ]);
 
@@ -177,6 +177,7 @@ class Experiment {
     this.article = currTrial['article'];
     this.adjective = currTrial['adj'];
     this.noun = currTrial['noun'];
+    this.adj_article = currTrial['adjective_article'];
     
     $("#blank").click();
     $("#instructions").hide();
@@ -186,7 +187,7 @@ class Experiment {
     if (this.article == null) {
       var utterance = "<p>How common is it for " + this.noun + " to be " + this.adjective + " " + this.noun + "?</p>";
     } else {
-      var utterance = "<p>How common is it for a(n) " + this.noun + " to be a(n) " + this.adjective + " " + this.noun + "?</p>";
+      var utterance = "<p>How common is it for " + this.article + " " + this.noun + " to be " + this.adj_article + " " + this.adjective + " " + this.noun + "?</p>";
     } 
 
     

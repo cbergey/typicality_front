@@ -177,7 +177,7 @@ class Experiment {
     this.article = currTrial['article'];
     this.adjective = currTrial['adj'];
     this.noun = currTrial['noun'];
-    this.adj_article = currTrial['adjective_article'];
+    this.adj_article = currTrial['adj_article'];
     
     $("#blank").click();
     $("#instructions").hide();

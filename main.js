@@ -87,21 +87,9 @@ class Experiment {
     this.age = "";
     //inputed at beginning of experiment
     this.trialnum = 0;
-    //whether child received list 1 or list 2
-    this.target = "";
-    //word that child is queried on
-    this.leftpic = "";
-    //the name of the picture on the left
-    this.rightpic = "";
-    //the name of the picture on the right
-    this.person = "";
-    //the identity of original speaker
-    this.side = "";
-    //whether the child picked the left (L) or the right (R) picture
-    this.chosenpic = "";
-    //the name of the picture the child picked
+    
     this.response = "";
-    //whether the response was the correct response (Y) or the incorrect response (N)
+
     this.date = getCurrentDate();
     //the date of the experiment
     this.timestamp = getCurrentTime();
@@ -123,14 +111,15 @@ class Experiment {
       this.itemid = mongoData['set_id'];
       this.trials = mongoData['trials'];
       this.trials.push({
-        occurrence: 'check',
-        person: 'check',
-        subid: 'check',
-        subject: 'check',
-        target: 'A1',
-        trial: 'check'
+        adj: null,
+        noun: null,
+        article: null,
+        group: "attention_check",
+        mass: null,
+        adj_article: null
       });
       this.numTrials = this.trials.length;
+      this.trials = shuffle(this.trials)
       console.log('num trials', this.numTrials);
       this.age = 'mturk';
       this.stimuli = _.map(this.trials, (trial) => {
@@ -160,7 +149,7 @@ class Experiment {
   processOneRow () {
     var jsonForRound = _.pick(this, [
       'subid', 'itemid', 'trialnum', 'adjective', 'noun', 'article', 'adj_article', 'rating',
-      'date','timestamp','reactiontime', 'occurrence'
+      'date','timestamp','reactiontime', 'group'
     ]);
 
     // send to server and save locally to submit to mturk

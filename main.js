@@ -138,7 +138,9 @@ class Experiment {
 
     setTimeout(function () {
       turk.submit(this.data, true);
-      $("#check").fadeOut();
+      $("#question").hide();
+      $("#stimulus").hide();
+      $("#stage").fadeOut();
       showSlide("finish");
     }.bind(this), normalpause);
   };

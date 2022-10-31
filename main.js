@@ -172,9 +172,12 @@ class Experiment {
     $("#instructions").hide();
     $("#question").hide();
     $("#stimulus").hide();
-    $("#stage").fadeIn();    
-    if (this.article == null) {
+    $("#stage").fadeIn();
+    if (this.noun == null) {
+        var utterance = "<p>Select 'Often'.</p>";
+    } else if (this.article == null) {
       var utterance = "<p>How common is it for " + this.noun + " to be " + this.adjective + " " + this.noun + "?</p>";
+      
     } else {
       var utterance = "<p>How common is it for " + this.article + " " + this.noun + " to be " + this.adj_article + " " + this.adjective + " " + this.noun + "?</p>";
     } 

@@ -133,6 +133,7 @@ class Experiment {
 
   //the end of the experiment
   end () {
+    this.clickDisabled = true;
     console.log('if submitted, data on mturk would be');
     console.log(this.data);
 
@@ -169,6 +170,7 @@ class Experiment {
     this.adjective = currTrial['adj'];
     this.noun = currTrial['noun'];
     this.adj_article = currTrial['adj_article'];
+    this.startTime = (new Date()).getTime();
     
     $("#blank").click();
     $("#instructions").hide();
@@ -184,7 +186,7 @@ class Experiment {
       var utterance = "<p>How common is it for " + this.article + " " + this.noun + " to be " + this.adj_article + " " + this.adjective + " " + this.noun + "?</p>";
     } 
 
-    
+    this.clickDisabled = false
     $('#question').html(utterance);
     $("#question").fadeIn(1000);
     $("#stimulus").fadeIn(1000);
@@ -198,30 +200,32 @@ class Experiment {
     // after audio finishes, allow to click tangram and start clock
     audio.play(function(){
       this.clickDisabled = false;
-      this.startTime = (new Date()).getTime();
+      this.startTime = (new Date()).getTime(); // when audio doesn't play, start time is beginning of trial
     }.bind(this));
   }
 
   handleClick(rating) {
-    // time the participant clicked picture - the time the audio finished
-    this.reactiontime = (new Date()).getTime() - this.startTime;
-    this.clickDisabled = true; 
-    
-    this.rating = rating;
+    if (!clickDisabled) {
+      this.reactiontime = (new Date()).getTime() - this.startTime;
+      this.clickDisabled = true; 
+      $("#question").hide();
+      $("#stimulus").hide();
+      this.rating = rating;
 
-    //Process the data to be saved
-    this.processOneRow();
+      //Process the data to be saved
+      this.processOneRow();
 
-    setTimeout(function() { 
-      document.getElementById("blank").click();
-      setTimeout(function() {
-        if (this.trialnum + 1 === this.numTrials) {
-          this.end()
-        } else {
-          this.study(this.trialnum + 1);
-        }
+      setTimeout(function() { 
+        document.getElementById("blank").click();
+        setTimeout(function() {
+          if (this.trialnum + 1 === this.numTrials) {
+            this.end()
+          } else {
+            this.study(this.trialnum + 1);
+          }
+        }.bind(this), 200);
       }.bind(this), 200);
-    }.bind(this), 200);
+    }
   }
 }
 

@@ -72,7 +72,7 @@ io.on('connection', function (socket) {
   socket.on('currentData', function(data) {
     var dbInfo = {
       dbname: 'typicality-judgments',
-      colname: 'experiment1',
+      colname: 'experiment2',
       iterationname: 'testing'
     };
     sendPostRequest(
